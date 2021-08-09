@@ -1,20 +1,31 @@
 package com.CabInvoiceGenerator;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class RideMain {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("The Cab Service");
-        System.out.println("Enter the how much distance to travel: ");
-        double d = sc.nextDouble();
-        System.out.println("Enter the how much time to travel: ");
-        int t = sc.nextInt();
 
-        Ride user = new Ride(d, t);
+        ArrayList<Ride> cab = new ArrayList<>();
+        System.out.println("Enter how many ride's want to travel");
+        int n = sc.nextInt();
+        int temp = n;
+        while (temp!=0) {
+            System.out.println("Enter the how much distance to travel: ");
+            double distance = sc.nextDouble();
+            System.out.println("Enter the how much time to travel: ");
+            int time = sc.nextInt();
+            Ride userCab = new Ride(distance, time);
+            cab.add(userCab);
+            temp--;
+        }
+        double totalFare = 0;
+        for (Ride r: cab){
+            totalFare +=  (r.distance * r.MinimumCostPerKM) + (r.time * r.CoastPerMinute);
+        }
 
-        double a = user.CalculateFare();
-        System.out.println("Total Cab fare is : Rs:"+a);
+        System.out.println("The total Fare "+totalFare+" for "+n+ " no.of ride's");
     }
 }
